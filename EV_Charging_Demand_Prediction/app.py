@@ -24,3 +24,17 @@ if uploaded_file:
     st.write("MAE:", mae)
     st.write("RMSE:", rmse)
 
+    st.subheader("Actual vs Predicted Demand")
+
+    fig, ax = plt.subplots()
+    ax.plot(y_test.values[:200], label="Actual")
+    ax.plot(predictions[:200], label="Predicted")
+    ax.legend()
+
+    st.pyplot(fig)
+
+    st.subheader("Peak Usage by Hour")
+
+    peak = df_long.groupby('hour')['volume_kwh'].mean()
+    st.bar_chart(peak)
+
