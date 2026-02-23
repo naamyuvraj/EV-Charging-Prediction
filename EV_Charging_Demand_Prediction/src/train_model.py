@@ -1,7 +1,8 @@
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 
-def train_model(df_long):
+def train_model(df_long, model_type="Linear Regression"):
     df_long['lag_1'] = df_long['volume_kwh'].shift(1)
     df_long = df_long.dropna()
     df_long['hour_sin'] = np.sin(2 * np.pi * df_long['hour'] / 24)
@@ -24,7 +25,11 @@ def train_model(df_long):
     y_train = y.iloc[:split_index]
     y_test  = y.iloc[split_index:]
 
-    model = LinearRegression()
+    if model_type == "Random Forest":
+        model = RandomForestRegressor(n_estimators=30, max_depth=10, random_state=42)
+    else:
+        model = LinearRegression()
+
     model.fit(X_train, y_train)
 
     return model, X_test, y_test
