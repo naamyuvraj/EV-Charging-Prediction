@@ -1,4 +1,4 @@
-rom sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression
 
 def train_model(df_long):
     X = df_long[['hour', 'day_of_week', 'month', 'is_weekend']]
