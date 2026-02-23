@@ -1,7 +1,6 @@
 import pandas as pd
 
-def load_and_preprocess(filepath):
-    df = pd.read_csv(filepath)
+def preprocess_dataframe(df):
     df['time'] = pd.to_datetime(df['time'])
 
     df_long = df.melt(
@@ -9,6 +8,7 @@ def load_and_preprocess(filepath):
         var_name='TAZID',
         value_name='volume_kwh'
     )
+
     df_long['hour'] = df_long['time'].dt.hour
     df_long['day_of_week'] = df_long['time'].dt.dayofweek
     df_long['month'] = df_long['time'].dt.month
